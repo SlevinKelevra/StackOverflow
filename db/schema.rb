@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20170531084441) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "questions_id"
-    t.index ["questions_id"], name: "index_answers_on_questions_id"
+    t.bigint "question_id"
+    t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
   create_table "questions", force: :cascade do |t|

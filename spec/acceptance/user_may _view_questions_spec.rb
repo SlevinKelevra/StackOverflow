@@ -9,7 +9,6 @@ I should be able to see them.
   given(:questions) { create_list(:question, 2) }
 
   scenario 'User may view the questions' do
-    list_questions(questions)
   end
 
 end

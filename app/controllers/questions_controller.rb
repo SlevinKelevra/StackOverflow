@@ -1,13 +1,22 @@
 class QuestionsController < ApplicationController
 
+  def index
+    @question = Question.all
+  end
+
   def new
     @question = Question.new
+  end
+
+  def show
+    @question = Question.find(params[:id])
   end
 
   def create
     @question = Question.new(question_params)
 
     if @question.save
+      flash[:notice] = 'Your question successfully created.'
       redirect_to @question
     else
       render :new

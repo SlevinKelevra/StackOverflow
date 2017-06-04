@@ -14,6 +14,7 @@ I want to be able to create i
     fill_in 'Body', with: 'My text'
     click_on 'Create'
 
+    expect(page).to have_content 'Your question successfully created'
     expect(page).to have_content 'My title'
     expect(page).to have_content 'My text'
   end

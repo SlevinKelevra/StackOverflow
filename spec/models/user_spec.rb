@@ -6,4 +6,17 @@ RSpec.describe User, type: :model do
   it { should have_many(:answers)}
   it { should have_many(:questions)}
 
+  let(:user) { create :user }
+  let(:question) { create(:question, user: user) }
+  let(:user_without_question) { create :user }
+
+  describe 'author_of? method' do
+    it 'returns true if user author of object' do
+      expect(user.author?(question)).to be true
+    end
+    it 'returns false if user not author of object' do
+      expect(user_without_question.author?(question)).to be false
+    end
+  end
+
 end

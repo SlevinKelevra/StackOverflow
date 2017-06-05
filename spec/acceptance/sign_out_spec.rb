@@ -11,7 +11,6 @@ feature 'sign out', %q{
   scenario 'Sign out as authenticated user' do
     sign_in(user)
     visit root_path
-    save_and_open_page
     click_on 'Sign out'
 
     expect(page).to have_content 'Signed out successfully'

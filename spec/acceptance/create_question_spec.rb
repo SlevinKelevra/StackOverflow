@@ -5,21 +5,30 @@ In order to ask a question
 As a user
 I want to be able to create i
 } do
+  given(:user) { create :user }
 
-  scenario 'User try to create a question' do
+  scenario 'Authenticated user creates question' do
+    sign_in(user)
 
     visit questions_path
     click_on 'Ask question'
-    fill_in 'Title', with: 'My title'
-    fill_in 'Body', with: 'My text'
+    fill_in 'Title', with: 'Test question'
+    fill_in 'Body', with: 'Test body'
     click_on 'Create'
-
     expect(page).to have_content 'Your question successfully created'
-    expect(page).to have_content 'My title'
-    expect(page).to have_content 'My text'
+    expect(page).to have_content 'Test question'
+    expect(page).to have_content 'Test body'
   end
 
-  scenario 'User creates non-valid question' do
+  scenario 'Non-authenticated user creates question' do
+    visit questions_path
+    click_on 'Ask question'
+    expect(page).to have_content 'need to sign in'
+  end
+
+  scenario 'Authenticated user creates non-valid question' do
+    sign_in(user)
+
     visit questions_path
     click_on 'Ask question'
     click_on 'Create'

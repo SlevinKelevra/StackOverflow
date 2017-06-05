@@ -11,5 +11,5 @@ h2 Answers
 - @question.answers.each do |answer|
   - if answer.persisted?
     p = answer.body
-    if user_signed_in? && current_user.author?(answer)
+  - if user_signed_in? && current_user.author?(answer)
           = link_to 'Delete answer', answer, method: :delete

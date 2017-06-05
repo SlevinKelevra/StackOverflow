@@ -1,4 +1,5 @@
 class AnswersController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :destroy]
 
   def create
     @question = Question.find(params[:question_id])
@@ -11,6 +12,17 @@ class AnswersController < ApplicationController
       flash[:notice] = 'Your answer was not saved.'
       render 'questions/new'
     end
+  end
+
+  def destroy
+    @answer = Answer.find(params[:id])
+    if current_user.author?(@answer)
+      @answer.destroy
+      flash[:notice] = 'Your answer successfully deleted.'
+    else
+      flash[:notice] = 'You cannot delete this answer.'
+    end
+    redirect_to @answer.question
   end
 
   private

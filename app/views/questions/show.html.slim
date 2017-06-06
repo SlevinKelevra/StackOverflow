@@ -13,3 +13,9 @@ h2 Answers
     p = answer.body
   - if user_signed_in? && current_user.author?(answer)
           = link_to 'Delete answer', answer, method: :delete
+
+= form_for [@question, @answer] do |f|
+  = render 'common/errors', resource: @answer
+  p = f.label :body, 'Input your answer:'
+  p = f.text_area :body
+  p = f.submit 'Post your answer'

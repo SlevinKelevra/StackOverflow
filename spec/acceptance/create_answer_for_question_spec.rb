@@ -12,10 +12,10 @@ I have the opportunity
     sign_in(user)
     visit question_path(question)
 
-    fill_in 'Input your answer', with: "answer_body"
+    fill_in 'Input your answer', with: 'answer_body'
     click_on 'Post your answer'
 
-    expect(page).to have_content "answer_body"
+    expect(page).to have_content 'answer_body'
     expect(page).to have_content 'Your answer was successfully created.'
   end
 

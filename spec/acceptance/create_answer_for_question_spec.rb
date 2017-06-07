@@ -16,6 +16,7 @@ I have the opportunity
     click_on 'Post your answer'
 
     expect(page).to have_content "answer_body"
+    expect(page).to have_content 'Your answer was successfully created.'
   end
 
   scenario 'Non-authenticated user creates answer' do
@@ -29,7 +30,6 @@ I have the opportunity
     sign_in(user)
     visit question_path(question)
     click_on 'Post your answer'
-    save_and_open_page
     expect(page).to have_content "Body can't be blank"
   end
 

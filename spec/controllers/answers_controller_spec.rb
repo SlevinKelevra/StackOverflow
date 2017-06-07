@@ -27,7 +27,7 @@ RSpec.describe AnswersController, type: :controller do
       end
       it 're-renders new view' do
         post :create, params: invalid_params
-        expect(response).to render_template 'questions/new'
+        expect(response).to render_template 'questions/show'
       end
     end
   end

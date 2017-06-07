@@ -1,18 +1,18 @@
 h1 Question
 
-p = @question.title
-p = @question.body
-
 - if current_user && current_user.author?(@question)
   = link_to 'Delete question', question_path, method: :delete
+
+p = @question.title
+p = @question.body
 
 h2 Answers
 
 - @question.answers.each do |answer|
   - if answer.persisted?
     p = answer.body
-  - if user_signed_in? && current_user.author?(answer)
-          = link_to 'Delete answer', answer, method: :delete
+    - if user_signed_in? && current_user.author?(answer)
+      = link_to 'Delete answer', answer, method: :delete
 
 = form_for [@question, @answer] do |f|
   = render 'common/errors', resource: @answer

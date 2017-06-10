@@ -8,15 +8,14 @@ I have the opportunity
   given(:user) { create :user }
   given(:question) { create :question }
 
-  scenario 'Authenticated user creates answer' do
+  scenario 'Authenticated user creates answer', js: true do
     sign_in(user)
     visit question_path(question)
 
-    fill_in 'Input your answer', with: 'answer_body'
+    fill_in 'Input your answer', with: "answer_body"
     click_on 'Post your answer'
 
-    expect(page).to have_content 'answer_body'
-    expect(page).to have_content 'Your answer was successfully created.'
+    expect(page).to have_content "answer_body"
   end
 
   scenario 'Non-authenticated user creates answer' do
@@ -26,7 +25,7 @@ I have the opportunity
     expect(page).to have_content 'need to sign in'
   end
 
-  scenario 'Authenticated user creates non-valid answer' do
+  scenario 'Authenticated user creates non-valid answer', js: true do
     sign_in(user)
     visit question_path(question)
     click_on 'Post your answer'

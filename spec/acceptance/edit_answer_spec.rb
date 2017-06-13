@@ -11,7 +11,7 @@ feature 'Answer editing', %q{
   given!(:answer) { create(:answer, user: user, question: question) }
   given!(:user_without_question) { create :user }
 
-  scenario 'Unauthenticated user try to edit question' do
+  scenario 'Unauthenticated user try to edit answer' do
     visit question_path(question)
 
     expect(page).to_not have_link 'Edit'

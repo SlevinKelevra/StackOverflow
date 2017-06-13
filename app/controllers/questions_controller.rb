@@ -10,6 +10,8 @@ class QuestionsController < ApplicationController
     @answer = @question.answers.new
   end
 
+  def edit; end
+
   def new
     @question = Question.new
   end

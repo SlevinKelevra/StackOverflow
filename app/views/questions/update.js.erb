@@ -1,0 +1,7 @@
+$('.errors').remove();
+$('.notice').remove();
+<% if @question.errors.any? %>
+$('.question').append('<%= j render 'common/errors', resource: @question %>');
+<% else %>
+$('.question').html('<%= j render @question %>')
+<% end %>

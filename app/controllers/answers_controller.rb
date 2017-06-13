@@ -1,8 +1,8 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, only: [:create, :destroy]
+  before_action :set_answer, only: [:destroy, :update]
 
   def update
-    @answer = Answer.find(params[:id])
     if current_user.author?(@answer)
       @question = @answer.question
       @answer.update(answer_params)
@@ -19,7 +19,6 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    @answer = Answer.find(params[:id])
     if current_user.author?(@answer)
       @answer.destroy
       flash[:notice] = 'Your answer successfully deleted.'
@@ -30,6 +29,10 @@ class AnswersController < ApplicationController
   end
 
   private
+
+  def set_answer
+    @answer = Answer.find(params[:id])
+  end
 
   def answer_params
     params.require(:answer).permit(:body)

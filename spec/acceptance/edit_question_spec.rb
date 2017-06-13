@@ -24,11 +24,11 @@ feature 'Answer editing', %q{
       expect(page).to have_link 'Edit'
       click_on 'Edit'
 
+      save_and_open_page
       fill_in 'Edit title question', with: 'edit_title'
       fill_in 'Edit body question', with: 'edit_body'
       click_on 'Save'
 
-      save_and_open_page
       expect(page).to_not have_content question.title
       expect(page).to_not have_content question.body
       fill_in 'Edit title question', with: 'edit_title'
@@ -44,7 +44,7 @@ feature 'Answer editing', %q{
     sign_in(user)
     visit question_path(question)
 
-    within '.answers' do
+    within '.question' do
       expect(page).to_not have_link 'Edit'
     end
   end

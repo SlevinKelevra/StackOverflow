@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
-  let(:question) { create :question }
+  let!(:question) { create :question }
 
   describe 'POST #create' do
     sign_in_user
@@ -55,6 +55,32 @@ RSpec.describe AnswersController, type: :controller do
       it 'redirects to question' do
         delete :destroy, params: { id: answer_user }
         expect(response).to redirect_to answer.question
+      end
+    end
+  end
+
+  describe 'PATCH #update' do
+    sign_in_user
+    let!(:answer_user) { create(:answer, question: question, user: @user) }
+    let!(:answer) { create(:answer, question: question) }
+
+    context 'author edit his answer ' do
+      it 'assigns the requested answer to @answer' do
+        patch :update, params: { id: answer_user, answer: attributes_for(:answer), question_id: question, format: :js }
+        expect(assigns(:answer)).to eq answer_user
+      end
+      it 'assigns question to @question' do
+        patch :update, params: { id: answer_user, answer: attributes_for(:answer), question_id: question, format: :js }
+        expect(assigns(:question)).to eq question
+      end
+      it 'change answer attributes' do
+        patch :update, params: { id: answer_user, answer: { body: 'new_body' }, question_id: question, format: :js }
+        answer_user.reload
+        expect(answer_user.body).to eq 'new_body'
+      end
+      it 'render update template' do
+        patch :update, params: { id: answer_user, answer: attributes_for(:answer), question_id: question, format: :js }
+        expect(response).to render_template :update
       end
     end
   end

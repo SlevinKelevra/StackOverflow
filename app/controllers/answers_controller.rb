@@ -1,6 +1,16 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, only: [:create, :destroy]
 
+  def update
+    @answer = Answer.find(params[:id])
+    if current_user.author?(@answer)
+      @question = @answer.question
+      @answer.update(answer_params)
+    else
+      flash[:notice] = 'You cannot edit this answer.'
+    end
+  end
+
   def create
     @question = Question.find(params[:question_id])
     @answer = @question.answers.new(answer_params)

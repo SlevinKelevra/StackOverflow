@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index, :update]
-  before_action :set_question, only: [:show, :destroy, :update]
+  before_action :set_question, only: [:show, :edit, :destroy, :update]
 
   def index
     @questions = Question.all
@@ -42,7 +42,6 @@ class QuestionsController < ApplicationController
       render :edit
     end
   end
-
 
   private
 

@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :destroy]
-  before_action :set_answer, only: [:destroy, :update]
+  before_action :authenticate_user!, only: [:create, :destroy, :update, :best]
+  before_action :set_answer, only: [:destroy, :update, :best]
 
   def update
     if current_user.author?(@answer)
@@ -26,6 +26,14 @@ class AnswersController < ApplicationController
       flash[:notice] = 'You cannot delete this answer.'
     end
     redirect_to @answer.question
+  end
+
+  def best
+    if current_user.author?(@answer.question)
+      @answer.best!
+    else
+      flash[:notice] = 'You cannot select best answer.'
+    end
   end
 
   private

@@ -1,0 +1,10 @@
+$('.errors').remove();
+$('.notice').remove();
+<% if @answer.errors.any? %>
+$('.answers').append('<%= j render 'common/errors', resource: @answer %>');
+<% else %>
+$('.best').removeClass('best');
+$('#answer-<%= @answer.id %>').prependTo('.answers');
+$('#answer-<%= @answer.id %>').prepend('<p class="best-label"> Best answer: </p>')
+$('#answer-<%= @answer.id %>').addClass('best');
+<% end %>

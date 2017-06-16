@@ -84,4 +84,33 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
   end
+
+  describe 'PATCH #best' do
+    sign_in_user
+    let(:question_user) { create :question, answers: create_list(:answer, 2), user: @user }
+    let(:question) { create :question, answers: create_list(:answer, 2) }
+
+    context 'question author set best answer' do
+      it 'set best to true' do
+        patch :best, params: { id: question_user.answers.first, format: :js }
+        expect(assigns(:answer).best).to eq true
+      end
+      it 'renders best template' do
+        patch :best, params: { id: question_user.answers.first, format: :js }
+        expect(response).to render_template :best
+      end
+    end
+
+    context 'not question author try to set best answer' do
+      before do
+        patch :best, params: { id: question.answers.first, format: :js }
+      end
+      it 'not set best to true' do
+        expect(assigns(:answer).best).to eq false
+      end
+      it 'show message' do
+        expect(flash[:notice]).to eq('You cannot select best answer.')
+      end
+    end
+  end
 end

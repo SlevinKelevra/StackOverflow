@@ -22,7 +22,6 @@ feature 'Best answer', %q{
 
     expect(page).to have_link 'Best answer'
 
-    save_and_open_page
     last_answer = question.answers.last
 
     within("#answer-#{last_answer.id}") do

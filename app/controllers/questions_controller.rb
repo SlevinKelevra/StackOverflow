@@ -14,6 +14,7 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
+    @question.attachments.new
   end
 
   def create
@@ -48,6 +49,6 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:body, :title)
+    params.require(:question).permit(:body, :title, attachments_attributes: [:file])
   end
 end

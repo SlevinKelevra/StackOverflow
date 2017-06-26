@@ -22,7 +22,7 @@ feature 'Remove files from question', %q{
     end
   end
 
-  scenario 'Non - Author deletes file', js: true do
+  scenario 'Non authro is not able to delete files', js: true do
     sign_in(user_without_question)
     answer.attachments.create(file: file)
     visit question_path(question)

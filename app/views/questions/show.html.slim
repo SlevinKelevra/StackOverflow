@@ -2,6 +2,7 @@ h1 Question
 
 .question
   = render @question
+  = render 'common/vote', votable: @question
 
 .answers
   = render @question.answers.ordered
